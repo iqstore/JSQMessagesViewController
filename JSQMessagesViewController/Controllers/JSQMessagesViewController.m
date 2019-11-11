@@ -230,6 +230,14 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [super viewDidLoad];
 
     [[[self class] nib] instantiateWithOwner:self options:nil];
+    
+    // Fix the top cell underlapping the Nav Bar.
+    // https://github.com/jessesquires/JSQMessagesViewController/issues/2179
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.collectionView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+        self.collectionView.scrollIndicatorInsets = self.collectionView.contentInset;
+    }
 
     [self jsq_configureMessagesViewController];
     [self jsq_registerForNotifications:YES];
