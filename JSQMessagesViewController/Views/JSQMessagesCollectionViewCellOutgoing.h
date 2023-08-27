@@ -24,4 +24,9 @@
  */
 @interface JSQMessagesCollectionViewCellOutgoing : JSQMessagesCollectionViewCell
 
+@property (weak, nonatomic, readonly) UIImageView *fileImageView;
+@property (weak, nonatomic, readonly) NSLayoutConstraint *fileImageViewWidthConstraint;
+@property (weak, nonatomic, readonly) NSLayoutConstraint *fileImageViewLeadingConstraint;
+@property (weak, nonatomic, readonly) NSLayoutConstraint *fileImageViewTrailingConstraint;
+
 @end
