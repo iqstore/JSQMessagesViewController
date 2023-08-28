@@ -18,6 +18,15 @@
 
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 
+@interface JSQMessagesCollectionViewCellOutgoing()
+
+@property (weak, nonatomic) IBOutlet UIImageView *fileImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fileImageViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fileImageViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fileImageViewTrailingConstraint;
+
+@end
+
 @implementation JSQMessagesCollectionViewCellOutgoing
 
 #pragma mark - Overrides
@@ -27,6 +36,19 @@
     [super awakeFromNib];
     self.messageBubbleTopLabel.textAlignment = NSTextAlignmentRight;
     self.cellBottomLabel.textAlignment = NSTextAlignmentRight;
+    self.fileImageViewWidthConstraint.constant = 0;
+    self.fileImageViewLeadingConstraint.constant = 0;
+    self.fileImageViewTrailingConstraint.constant = 0;
+    UIImage *image = [UIImage systemImageNamed:@"doc"];
+    self.fileImageView.image = image;
+    self.fileImageView.tintColor = [UIColor blackColor];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.fileImageViewWidthConstraint.constant = 0;
+    self.fileImageViewLeadingConstraint.constant = 0;
+    self.fileImageViewTrailingConstraint.constant = 0;
 }
 
 @end
