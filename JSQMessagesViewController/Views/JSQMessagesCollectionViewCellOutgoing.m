@@ -41,7 +41,7 @@
     self.fileImageViewTrailingConstraint.constant = 0;
     UIImage *image = [UIImage systemImageNamed:@"doc"];
     self.fileImageView.image = image;
-    self.fileImageView.tintColor = [UIColor whiteColor];
+    self.fileImageView.tintColor = [UIColor blackColor];
 }
 
 - (void)prepareForReuse {
