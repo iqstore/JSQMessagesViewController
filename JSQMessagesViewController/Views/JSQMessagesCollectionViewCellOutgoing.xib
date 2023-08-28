@@ -36,10 +36,10 @@
                         <color key="textColor" systemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2zh-vR-QJW" userLabel="Bubble container">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zh-vR-QJW" userLabel="Bubble container">
                         <rect key="frame" x="40" y="40" width="244" height="94"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qm-c6-OZf" userLabel="Bubble Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2qm-c6-OZf" userLabel="Bubble Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="244" height="94"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d1G-OV-7Fq" userLabel="File Image View">
@@ -49,8 +49,8 @@
                                     <constraint firstAttribute="height" constant="25" id="rd0-XV-xbH"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLY-aM-0Dr" customClass="JSQMessagesCellTextView">
-                                <rect key="frame" x="6" y="0.0" width="232" height="94"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLY-aM-0Dr" customClass="JSQMessagesCellTextView">
+                                <rect key="frame" x="0.0" y="0.0" width="238" height="94"/>
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -65,7 +65,7 @@
                             <constraint firstAttribute="bottom" secondItem="vLY-aM-0Dr" secondAttribute="bottom" id="UbF-Bl-Q7v"/>
                             <constraint firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="trailing" constant="6" id="aVg-yy-8K7"/>
                             <constraint firstItem="d1G-OV-7Fq" firstAttribute="trailing" secondItem="vLY-aM-0Dr" secondAttribute="leading" id="bnx-L0-RNn"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="244" id="imD-52-K45"/>
+                            <constraint firstAttribute="width" constant="244" id="imD-52-K45"/>
                             <constraint firstItem="d1G-OV-7Fq" firstAttribute="centerY" secondItem="2zh-vR-QJW" secondAttribute="centerY" id="lqG-wp-ZMq"/>
                             <constraint firstAttribute="bottom" secondItem="2qm-c6-OZf" secondAttribute="bottom" id="lts-Ve-wSh"/>
                             <constraint firstItem="d1G-OV-7Fq" firstAttribute="leading" secondItem="2zh-vR-QJW" secondAttribute="leading" id="vr3-oS-F7I"/>
