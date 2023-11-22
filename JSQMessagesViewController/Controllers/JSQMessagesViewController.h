@@ -324,4 +324,6 @@
  */
 - (void)didReceiveMenuWillHideNotification:(NSNotification *)notification;
 
+- (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant;
+
 @end
