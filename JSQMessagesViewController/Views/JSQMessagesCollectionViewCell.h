@@ -167,6 +167,8 @@
  */
 @property (weak, nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 
+- (void)setAvatarViewSize:(CGSize)avatarViewSize;
+
 #pragma mark - Class methods
 
 /**
