@@ -25,16 +25,24 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 @interface JSQMessagesToolbarContentView ()
 
-@property (weak, nonatomic) IBOutlet JSQMessagesComposerTextView *textView;
+@property (strong, nonatomic) UIStackView *stackView;
 
-@property (weak, nonatomic) IBOutlet UIView *leftBarButtonContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftBarButtonContainerViewWidthConstraint;
+@property (strong, nonatomic) UIView *accessoryContainerView;
 
-@property (weak, nonatomic) IBOutlet UIView *rightBarButtonContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightBarButtonContainerViewWidthConstraint;
+@property (strong, nonatomic) UIView *contentView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftHorizontalSpacingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightHorizontalSpacingConstraint;
+@property (strong, nonatomic) JSQMessagesComposerTextView *textView;
+
+@property (strong, nonatomic) UIView *leftBarButtonContainerView;
+@property (strong, nonatomic) NSLayoutConstraint *leftBarButtonContainerViewWidthConstraint;
+
+@property (strong, nonatomic) UIView *rightBarButtonContainerView;
+@property (strong, nonatomic) NSLayoutConstraint *rightBarButtonContainerViewWidthConstraint;
+
+@property (strong, nonatomic) NSLayoutConstraint *leftHorizontalSpacingConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *rightHorizontalSpacingConstraint;
+
+@property (strong, nonatomic) NSLayoutConstraint *accessoryContainerHeightConstraint;
 
 @end
 
@@ -42,26 +50,238 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 @implementation JSQMessagesToolbarContentView
 
-#pragma mark - Class methods
-
-+ (UINib *)nib
-{
-    return [UINib nibWithNibName:NSStringFromClass([JSQMessagesToolbarContentView class])
-                          bundle:[NSBundle bundleForClass:[JSQMessagesToolbarContentView class]]];
-}
-
 #pragma mark - Initialization
 
-- (void)awakeFromNib
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super awakeFromNib];
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setSubviews];
+        [self setLayoutConstraints];
+        [self setStyleProperties];
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
 
+#pragma mark - Set subviews
+
+- (void) setSubviews {
+    self.stackView = [[UIStackView alloc] init];
+    self.accessoryContainerView = [[UIView alloc] init];
+    self.contentView = [[UIView alloc] init];
+    self.textView = [[JSQMessagesComposerTextView alloc] init];
+    self.leftBarButtonContainerView = [[UIView alloc] init];
+    self.rightBarButtonContainerView = [[UIView alloc] init];
+
+    [self addSubview: self.stackView];
+    [self.stackView addArrangedSubview: self.accessoryContainerView];
+    [self.stackView addArrangedSubview: self.contentView];
+    [self.contentView addSubview: self.leftBarButtonContainerView];
+    [self.contentView addSubview: self.textView];
+    [self.contentView addSubview: self.rightBarButtonContainerView];
+}
+
+#pragma mark - Layout constraints
+
+- (void) setLayoutConstraints {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    self.leftHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
-    self.rightHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
+    [self.stackView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    NSLayoutConstraint *stackViewLeading = [NSLayoutConstraint
+        constraintWithItem: self.stackView
+        attribute: NSLayoutAttributeLeading
+        relatedBy: NSLayoutRelationEqual
+        toItem: self
+        attribute: NSLayoutAttributeLeading
+        multiplier: 1
+        constant: 0
+    ];
+    NSLayoutConstraint *stackViewTop = [NSLayoutConstraint
+        constraintWithItem: self.stackView
+        attribute: NSLayoutAttributeTop
+        relatedBy: NSLayoutRelationEqual
+        toItem: self
+        attribute: NSLayoutAttributeTop
+        multiplier: 1
+        constant: 0
+    ];
+    NSLayoutConstraint *stackViewTrailing = [NSLayoutConstraint
+        constraintWithItem: self.stackView
+        attribute: NSLayoutAttributeTrailing
+        relatedBy: NSLayoutRelationEqual
+        toItem: self
+        attribute: NSLayoutAttributeTrailing
+        multiplier: 1
+        constant: 0
+    ];
+    NSLayoutConstraint *stackViewBottom = [NSLayoutConstraint
+        constraintWithItem: self.stackView
+        attribute: NSLayoutAttributeBottom
+        relatedBy: NSLayoutRelationEqual
+        toItem: self
+        attribute: NSLayoutAttributeBottom
+        multiplier: 1
+        constant: 0
+    ];
 
+    [self.accessoryContainerView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    self.accessoryContainerHeightConstraint = [NSLayoutConstraint
+        constraintWithItem: self.accessoryContainerView
+        attribute: NSLayoutAttributeHeight
+        relatedBy: NSLayoutRelationGreaterThanOrEqual
+        toItem: nil
+        attribute: NSLayoutAttributeNotAnAttribute
+        multiplier: 1
+        constant: 0
+    ];
+
+    [self.contentView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    NSLayoutConstraint *contentViewHeight = [NSLayoutConstraint
+        constraintWithItem: self.contentView
+        attribute: NSLayoutAttributeHeight
+        relatedBy: NSLayoutRelationEqual
+        toItem: nil
+        attribute: NSLayoutAttributeNotAnAttribute
+        multiplier: 1
+        constant: 44
+    ];
+
+    [self.leftBarButtonContainerView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    NSLayoutConstraint *leftBarButtonContainerViewLeading = [NSLayoutConstraint
+        constraintWithItem: self.leftBarButtonContainerView
+        attribute: NSLayoutAttributeLeading
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.contentView
+        attribute: NSLayoutAttributeLeading
+        multiplier: 1
+        constant: 8
+    ];
+    NSLayoutConstraint *leftBarButtonContainerViewBottom = [NSLayoutConstraint
+        constraintWithItem: self.leftBarButtonContainerView
+        attribute: NSLayoutAttributeBottom
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.contentView
+        attribute: NSLayoutAttributeBottom
+        multiplier: 1
+        constant: -6
+    ];
+    self.leftBarButtonContainerViewWidthConstraint = [NSLayoutConstraint
+        constraintWithItem: self.leftBarButtonContainerView
+        attribute: NSLayoutAttributeWidth
+        relatedBy: NSLayoutRelationEqual
+        toItem: nil
+        attribute: NSLayoutAttributeNotAnAttribute
+        multiplier: 1
+        constant: 34
+    ];
+    NSLayoutConstraint *leftBarButtonContainerViewHeight = [NSLayoutConstraint
+        constraintWithItem: self.leftBarButtonContainerView
+        attribute: NSLayoutAttributeHeight
+        relatedBy: NSLayoutRelationEqual
+        toItem: nil
+        attribute: NSLayoutAttributeNotAnAttribute
+        multiplier: 1
+        constant: 32
+    ];
+
+    [self.textView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    self.leftHorizontalSpacingConstraint = [NSLayoutConstraint
+        constraintWithItem: self.textView
+        attribute: NSLayoutAttributeLeading
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.leftBarButtonContainerView
+        attribute: NSLayoutAttributeTrailing
+        multiplier: 1
+        constant: kJSQMessagesToolbarContentViewHorizontalSpacingDefault
+    ];
+    NSLayoutConstraint *textViewTop = [NSLayoutConstraint
+        constraintWithItem: self.textView
+        attribute: NSLayoutAttributeTop
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.contentView
+        attribute: NSLayoutAttributeTop
+        multiplier: 1
+        constant: 7
+    ];
+    self.rightHorizontalSpacingConstraint = [NSLayoutConstraint
+        constraintWithItem: self.textView
+        attribute: NSLayoutAttributeTrailing
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.rightBarButtonContainerView
+        attribute: NSLayoutAttributeLeading
+        multiplier: 1
+        constant: -kJSQMessagesToolbarContentViewHorizontalSpacingDefault
+    ];
+    NSLayoutConstraint *textViewBottom = [NSLayoutConstraint
+        constraintWithItem: self.textView
+        attribute: NSLayoutAttributeBottom
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.contentView
+        attribute: NSLayoutAttributeBottom
+        multiplier: 1
+        constant: -7
+    ];
+
+    [self.rightBarButtonContainerView setTranslatesAutoresizingMaskIntoConstraints: NO];
+    NSLayoutConstraint *rightBarButtonContainerViewTrailing = [NSLayoutConstraint
+        constraintWithItem: self.rightBarButtonContainerView
+        attribute: NSLayoutAttributeTrailing
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.contentView
+        attribute: NSLayoutAttributeTrailing
+        multiplier: 1
+        constant: -8
+    ];
+    NSLayoutConstraint *rightBarButtonContainerViewBottom = [NSLayoutConstraint
+        constraintWithItem: self.rightBarButtonContainerView
+        attribute: NSLayoutAttributeBottom
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.contentView
+        attribute: NSLayoutAttributeBottom
+        multiplier: 1
+        constant: -6
+    ];
+    self.rightBarButtonContainerViewWidthConstraint = [NSLayoutConstraint
+        constraintWithItem: self.rightBarButtonContainerView
+        attribute: NSLayoutAttributeWidth
+        relatedBy: NSLayoutRelationEqual
+        toItem: nil
+        attribute: NSLayoutAttributeNotAnAttribute
+        multiplier: 1
+        constant: 50
+    ];
+    NSLayoutConstraint *rightBarButtonContainerViewHeight = [NSLayoutConstraint
+        constraintWithItem: self.rightBarButtonContainerView
+        attribute: NSLayoutAttributeHeight
+        relatedBy: NSLayoutRelationEqual
+        toItem: self.leftBarButtonContainerView
+        attribute: NSLayoutAttributeHeight
+        multiplier: 1
+        constant: 0
+    ];
+
+    NSArray *layoutConstraints = @[
+        stackViewLeading, stackViewTop, stackViewTrailing, stackViewBottom,
+        self.accessoryContainerHeightConstraint,
+        contentViewHeight,
+        leftBarButtonContainerViewLeading, leftBarButtonContainerViewBottom, self.leftBarButtonContainerViewWidthConstraint, leftBarButtonContainerViewHeight,
+        self.leftHorizontalSpacingConstraint, textViewTop, self.rightHorizontalSpacingConstraint, textViewBottom,
+        rightBarButtonContainerViewTrailing, rightBarButtonContainerViewBottom, self.rightBarButtonContainerViewWidthConstraint, rightBarButtonContainerViewHeight
+    ];
+
+    [NSLayoutConstraint activateConstraints: layoutConstraints];
+}
+
+#pragma mark - Set style properties
+
+- (void) setStyleProperties {
     self.backgroundColor = [UIColor clearColor];
+    self.stackView.axis = UILayoutConstraintAxisVertical;
+    [self.contentView
+        setContentCompressionResistancePriority: UILayoutPriorityDefaultHigh
+        forAxis: UILayoutConstraintAxisVertical
+    ];
 }
 
 #pragma mark - Setters
@@ -129,7 +349,7 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
     }
 
     self.rightBarButtonContainerView.hidden = NO;
-    self.rightHorizontalSpacingConstraint.constant = kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
+    self.rightHorizontalSpacingConstraint.constant = -kJSQMessagesToolbarContentViewHorizontalSpacingDefault;
     self.rightBarButtonItemWidth = CGRectGetWidth(rightBarButtonItem.frame);
 
     [rightBarButtonItem setTranslatesAutoresizingMaskIntoConstraints:NO];

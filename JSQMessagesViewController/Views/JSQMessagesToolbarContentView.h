@@ -35,9 +35,24 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
 @interface JSQMessagesToolbarContentView : UIView
 
 /**
+ *  Main stack view
+ */
+@property (strong, nonatomic, readonly) UIStackView *stackView;
+
+/**
+ *  Empty accessory container view
+ */
+@property (strong, nonatomic, readonly) UIView *accessoryContainerView;
+
+/**
+ *  Content view
+ */
+@property (strong, nonatomic, readonly) UIView *contentView;
+
+/**
  *  Returns the text view in which the user composes a message.
  */
-@property (weak, nonatomic, readonly) JSQMessagesComposerTextView *textView;
+@property (strong, nonatomic, readonly) JSQMessagesComposerTextView *textView;
 
 /**
  *  A custom button item displayed on the left of the toolbar content view.
@@ -49,7 +64,7 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  *  If the frame of this button is equal to `CGRectZero` when set, then a default frame size will be used.
  *  Set this value to `nil` to remove the button.
  */
-@property (weak, nonatomic) UIButton *leftBarButtonItem;
+@property (strong, nonatomic) UIButton *leftBarButtonItem;
 
 /**
  *  Specifies the width of the leftBarButtonItem.
@@ -73,7 +88,7 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  *  However, you will be completely responsible for responding to all touch events for these buttons
  *  in your `JSQMessagesViewController` subclass.
  */
-@property (weak, nonatomic, readonly) UIView *leftBarButtonContainerView;
+@property (strong, nonatomic, readonly) UIView *leftBarButtonContainerView;
 
 /**
  *  A custom button item displayed on the right of the toolbar content view.
@@ -85,7 +100,7 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  *  If the frame of this button is equal to `CGRectZero` when set, then a default frame size will be used.
  *  Set this value to `nil` to remove the button.
  */
-@property (weak, nonatomic) UIButton *rightBarButtonItem;
+@property (strong, nonatomic) UIButton *rightBarButtonItem;
 
 /**
  *  Specifies the width of the rightBarButtonItem.
@@ -109,7 +124,7 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  *  However, you will be completely responsible for responding to all touch events for these buttons
  *  in your `JSQMessagesViewController` subclass.
  */
-@property (weak, nonatomic, readonly) UIView *rightBarButtonContainerView;
+@property (strong, nonatomic, readonly) UIView *rightBarButtonContainerView;
 
 #pragma mark - Class methods
 
@@ -120,5 +135,7 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  *  initialization or the nib file could not be located.
  */
 + (UINib *)nib;
+
+@property (strong, nonatomic, readonly) NSLayoutConstraint *accessoryContainerHeightConstraint;
 
 @end
