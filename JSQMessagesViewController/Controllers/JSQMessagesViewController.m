@@ -269,6 +269,8 @@ JSQMessagesKeyboardControllerDelegate>
 
     [self jsq_configureMessagesViewController];
     [self jsq_registerForNotifications:YES];
+
+    self.inputToolbar.maximumHeight = 4 * 30;
 }
 
 - (void)viewWillAppear:(BOOL)animated
