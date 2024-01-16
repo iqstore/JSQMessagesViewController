@@ -140,7 +140,7 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
     NSLayoutConstraint *contentViewHeight = [NSLayoutConstraint
         constraintWithItem: self.contentView
         attribute: NSLayoutAttributeHeight
-        relatedBy: NSLayoutRelationEqual
+        relatedBy: NSLayoutRelationGreaterThanOrEqual
         toItem: nil
         attribute: NSLayoutAttributeNotAnAttribute
         multiplier: 1
